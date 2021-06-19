@@ -1,0 +1,12 @@
+<div class="input-group mb-3 search-container">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search by title"
+    [(ngModel)]="title"
+    (ngModelChange)="searchTitle($event)"
+  />
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">Search</button>
+  </div>
+</div>

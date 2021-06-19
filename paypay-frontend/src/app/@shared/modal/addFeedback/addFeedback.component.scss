@@ -1,0 +1,37 @@
+.error-mssg {
+  padding-left: 0px;
+}
+
+.pr-comment-section {
+  height: 150px;
+}
+
+.node-error {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.employee-dropdown {
+  width: 100%;
+  border-radius: 5px;
+  border: solid 1px #d6dce2;
+  background-color: #ffffff;
+  line-height: 1;
+  font-size: 12px;
+  font-weight: normal;
+  color: #415366;
+}
+
+.no_emp_found {
+  color: red;
+  padding: 20px;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.no_emp_found a {
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 100;
+}

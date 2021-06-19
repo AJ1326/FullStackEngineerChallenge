@@ -1,0 +1,83 @@
+{
+  "name": "angular12-crud",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~12.0.2",
+    "@angular/common": "~12.0.2",
+    "@angular/compiler": "~12.0.2",
+    "@angular/core": "~12.0.2",
+    "@angular/forms": "~12.0.2",
+    "@angular/platform-browser": "~12.0.2",
+    "@angular/platform-browser-dynamic": "~12.0.2",
+    "@angular/router": "~12.0.2",
+    "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
+    "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "angular2-multiselect-dropdown": "^5.0.4",
+    "bootstrap": "^4.6.0",
+    "rxjs": "~6.6.0",
+    "tslib": "^2.1.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~12.0.2",
+    "@angular/cli": "~12.0.2",
+    "@angular/compiler-cli": "~12.0.2",
+    "@types/jasmine": "~3.6.0",
+    "@types/node": "^12.11.1",
+    "jasmine-core": "~3.7.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "^1.5.0",
+    "typescript": "~4.2.3",
+    "@angular-builders/jest": "^10.0.0",
+    "@biesbjerg/ngx-translate-extract": "^7.0.3",
+    "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
+    "@ngx-rocket/scripts": "^4.0.0",
+    "@types/jasminewd2": "^2.0.8",
+    "@types/jest": "^26.0.12",
+    "codelyzer": "^6.0.1",
+    "hads": "^2.1.0",
+    "htmlhint": "^0.14.1",
+    "https-proxy-agent": "^5.0.0",
+    "jasmine-spec-reporter": "~5.0.1",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.1",
+    "tslint-config-prettier": "^1.18.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "pretty-quick": "^3.0.0",
+    "husky": "^4.2.5",
+    "protractor": "~7.0.0",
+    "stylelint": "~13.7.2",
+    "stylelint-config-recommended-scss": "~4.2.0",
+    "stylelint-config-standard": "~20.0.0",
+    "stylelint-scss": "~3.18.0",
+    "ts-node": "^9.0.0",
+    "tslint": "~6.1.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.scss",
+        "options": {
+          "singleQuote": false
+        }
+      }
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}

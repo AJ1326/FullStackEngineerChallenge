@@ -1,0 +1,146 @@
+<app-spinner></app-spinner>
+<div>
+  <div class="modal-header pr-modal-header">
+    <h4 class="modal-title font-weight-bold text-black-1">{{ title_tag }}</h4>
+  </div>
+  <div class="modal-body" *ngIf="employeesList">
+    <div *ngIf="error" class="text-danger node-error">
+      {{ error }} or user already added.
+    </div>
+    <div *ngIf="!(employeesList.length > 0)" class="no_emp_found">
+      No employee found.
+      <a (click)="goToemployeeScreen()">Add employee first.</a>
+    </div>
+    <form [formGroup]="feedbackForm" novalidate>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label for="empId" class="text-black-1">Employee name</label>
+        </div>
+        <div class="input-group col-8">
+          <angular2-multiselect
+            *ngIf="!form_data; else employee_present"
+            [data]="employeesList"
+            formControlName="empId"
+            [settings]="dropdownSingleSettings"
+            (onSelect)="onItemSelect($event)"
+          ></angular2-multiselect>
+          <ng-template #employee_present>
+            {{ form_data.name }}
+          </ng-template>
+          <div
+            class="col-12 error-mssg"
+            *ngIf="(f.empId.touched || submitted) && f.empId.errors"
+          >
+            <label
+              for="empId"
+              class="text-danger"
+              *ngIf="f.empId.errors.required"
+              >*Please select the employee you are giving feedback of.</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label for="title" class="text-black-1">Title</label>
+        </div>
+        <div class="input-group col-8">
+          <input
+            id="title"
+            class="form-control pr-input"
+            placeholder="*Title"
+            formControlName="title"
+            name="title"
+            type="text"
+          />
+          <div
+            class="col-12 error-mssg"
+            *ngIf="(f.title.touched || submitted) && f.title.errors"
+          >
+            <label
+              for="title"
+              class="text-danger"
+              *ngIf="f.title.errors.required"
+              >*Title is required.</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label for="feedback" class="text-black-1">Feedback</label>
+        </div>
+        <div class="input-group col-8">
+          <textarea
+            id="feedback"
+            class="form-control pr-input pr-comment-section"
+            placeholder="Please share your requirements or feedback here."
+            formControlName="feedback"
+            name="feedback"
+            type="text"
+          >
+          </textarea>
+          <div
+            class="col-12 error-mssg"
+            *ngIf="(f.feedback.touched || submitted) && f.feedback.errors"
+          >
+            <label
+              for="feedback"
+              class="text-danger"
+              *ngIf="f.feedback.errors.required"
+              >*Please enter your feedback.</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3" *ngIf="employeesUpdatedList">
+        <div class="col-4">
+          <label for="performance_review" class="text-black-1"
+            >Performance Review</label
+          >
+        </div>
+        <div class="input-group col-8">
+          <angular2-multiselect
+            [data]="employeesUpdatedList"
+            formControlName="performance_review"
+            [settings]="dropdownMultiSettings"
+          ></angular2-multiselect>
+          <div
+            class="col-12 error-mssg"
+            *ngIf="
+              (f.performance_review.touched || submitted) &&
+              f.performance_review.errors
+            "
+          >
+            <label
+              for="performance_review"
+              class="text-danger"
+              *ngIf="f.performance_review.errors.required"
+              >*Please select whome this employee can check the feedback
+              of.</label
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer border-0 pr-modal-footer">
+    <button
+      class="btn-cancel ml-4 w-100"
+      (click)="activeModal.close(false)"
+      ngbAutoFocus
+    >
+      Cancel
+    </button>
+    <button
+      class="btn-save ml-4 w-100"
+      *ngIf="!isLoading"
+      (click)="!form_data ? save() : saveUpdate()"
+    >
+      Submit
+    </button>
+    <button class="btn-save ml-4 w-100" disabled *ngIf="isLoading">
+      <i class="fa fa-spinner fa-spin" style="font-size: 16px"></i>
+    </button>
+  </div>
+</div>

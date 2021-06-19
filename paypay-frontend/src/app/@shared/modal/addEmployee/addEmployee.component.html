@@ -1,0 +1,86 @@
+<app-spinner></app-spinner>
+<div>
+  <div class="modal-header pr-modal-header">
+    <h4 class="modal-name font-weight-bold text-black-1">{{ title_tag }}</h4>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="error" class="text-danger node-error">{{ error }}</div>
+    <form [formGroup]="employeeForm" novalidate>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label for="name" class="text-black-1">Employee name</label>
+        </div>
+        <div class="input-group col-8">
+          <input
+            id="name"
+            class="form-control pr-input"
+            placeholder="*Name"
+            formControlName="name"
+            name="name"
+            type="text"
+          />
+          <div
+            class="col-12 error-mssg"
+            *ngIf="(f.name.touched || submitted) && f.name.errors"
+          >
+            <label for="name" class="text-danger" *ngIf="f.name.errors.required"
+              >*Name is required.</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label for="employee" class="text-black-1">Email</label>
+        </div>
+        <div class="input-group col-8">
+          <input
+            id="email"
+            class="form-control pr-input"
+            placeholder="*Email"
+            formControlName="email"
+            name="email"
+            type="text"
+          />
+          <div
+            class="col-12 error-mssg"
+            *ngIf="(f.email.touched || submitted) && f.email.errors"
+          >
+            <label for="email" class="text-danger" *ngIf="f.email.errors.email"
+              >*Please enter a valid email address.</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label for="performance_review" class="text-black-1">Gender</label>
+        </div>
+        <div class="input-group col-8">
+          <select class="pr-input wd-100" id="gender" formControlName="gender">
+            <option *ngFor="let c of gender" [ngValue]="c">{{ c }}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer border-0 pr-modal-footer">
+    <button
+      class="btn-cancel ml-4 w-100"
+      (click)="activeModal.close(false)"
+      ngbAutoFocus
+    >
+      Cancel
+    </button>
+    <button
+      class="btn-save ml-4 w-100"
+      *ngIf="!isLoading"
+      (click)="!form_data ? save() : saveUpdate()"
+    >
+      Submit
+    </button>
+    <button class="btn-save ml-4 w-100" disabled *ngIf="isLoading">
+      <i class="fa fa-spinner fa-spin" style="font-size: 16px"></i>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,167 @@
+<div class="row mt-50">
+  <div
+    class="
+      col
+      setting-actions
+      justify-content-between
+      d-flex
+      h-70
+      align-items-center
+    "
+  >
+    <h2 class="text-cyan m-0">Employee List</h2>
+    <div>
+      <button class="btn-add ml-4" (click)="openAddEditEmployeeForm('add')">
+        <i class="fa fa-plus"></i>Add employee
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="table_wrapper my-5 mx-3 search-centre">
+      <app-search
+        [childMessage]="parentMessage"
+        (searchEvent)="receiveSearchedData($event)"
+      ></app-search>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="table_wrapper my-5 mx-3 lead-table-padding">
+      <div
+        class="col remove-pd"
+        *ngIf="employees !== null; else no_employees_found"
+      >
+        <div
+          class="pr-accordian mx-auto wm-1000 mt-4"
+          [ngClass]="!accArray.includes(i) ? '' : 'expand'"
+          *ngFor="let employee of employees; let i = index"
+          [attr.data-index]="i"
+        >
+          <div class="acc-header d-flex justify-content-between">
+            <div class="d-flex-row-centre d-flex">
+              <div class="hide-mobile">
+                <ng-container>
+                  <img
+                    class="status-img lead-status-bg-accepted"
+                    src="../../../assets/images/tags/avatar.png"
+                  />
+                </ng-container>
+              </div>
+              <h5 class="text-black-1">{{ employee['name'] }}</h5>
+            </div>
+            <div class="d-flex align-items-center">
+              <div>
+                <button
+                  class="btn-save mr-1 btn-accept"
+                  [disabled]="isLoading"
+                  (click)="openAddEditEmployeeForm('edit', employee)"
+                >
+                  <i
+                    class="fas fa-cog fa-spin"
+                    *ngIf="isLoading && accArray.includes(i)"
+                  ></i>
+                  Edit
+                </button>
+
+                <button
+                  class="btn-stop mr-3 btn-reject"
+                  [disabled]="isLoading"
+                  (click)="deleteEmployee(employee.empId)"
+                >
+                  <i
+                    class="fas fa-cog fa-spin"
+                    *ngIf="isLoading && accArray.includes(i)"
+                  ></i>
+                  Delete
+                </button>
+              </div>
+              <button
+                class="ml-1 mr-3 btn-acc-toggle"
+                (click)="toggleDetails(i)"
+              >
+                <i
+                  [ngClass]="
+                    !accArray.includes(i)
+                      ? 'fas fa-chevron-down text-black-2'
+                      : 'fas fa-chevron-up text-black-2'
+                  "
+                ></i>
+              </button>
+            </div>
+          </div>
+          <div class="acc-body px-3">
+            <table class="w-100p table-2">
+              <thead class="hide-mobile">
+                <tr>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Name</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Email</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Gender</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">
+                      Created At
+                    </h4>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="mobile-tr-table">
+                  <td>
+                    <span class="mobile-table-col-heading">Name</span>
+                    <h4 class="text-black-1 p-3 pr-3 w-240">
+                      {{
+                        employee['name'] === null || employee['name'] === ''
+                          ? '(no name)'
+                          : employee['name']
+                      }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Email </span>
+                    <h4 class="text-black-1 p-3 pr-3 w-240">
+                      {{ employee['email'] }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Gender </span>
+                    <div class="text-black-1 p-3 pr-3 w-240">
+                      {{
+                        employee['gender'] === null || employee['gender'] === ''
+                          ? '(no gender)'
+                          : employee['gender']
+                      }}
+                    </div>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Created At </span>
+                    <h4 class="text-black-1 p-3">
+                      {{
+                        employee['createdAt'] !== null
+                          ? (employee['createdAt'] | date: 'medium')
+                          : '-'
+                      }}
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <ng-template #no_employees_found>
+        <div class="noLeadFound d-flex-col d-flex-centre">
+          <span> No employee found with the given name. </span>
+          <img src="../../../assets/images/noProduct/no-product-found.svg" />
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

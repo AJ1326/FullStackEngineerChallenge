@@ -1,0 +1,66 @@
+<app-spinner></app-spinner>
+<div>
+  <div class="modal-header pr-modal-header">
+    <h4 class="modal-name font-weight-bold text-black-1">{{ title_tag }}</h4>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="error" class="text-danger node-error">{{ error }}</div>
+    <form [formGroup]="employeeReviewForm" novalidate>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label for="review" class="text-black-1">Review</label>
+        </div>
+        <div class="input-group col-8">
+          <textarea
+            id="review"
+            class="form-control pr-input ht-100"
+            placeholder="*Please enter your review for the employee."
+            formControlName="review"
+            name="review"
+            type="text"
+          ></textarea>
+          <div
+            class="col-12 error-mssg"
+            *ngIf="(f.review.touched || submitted) && f.review.errors"
+          >
+            <label
+              for="review"
+              class="text-danger"
+              *ngIf="f.review.errors.required"
+              >*Review is required.</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label for="performance_review" class="text-black-1">Status</label>
+        </div>
+        <div class="input-group col-8">
+          <select class="pr-input wd-100" id="status" formControlName="status">
+            <option *ngFor="let c of status" [ngValue]="c">{{ c }}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer border-0 pr-modal-footer">
+    <button
+      class="btn-cancel ml-4 w-100"
+      (click)="activeModal.close(false)"
+      ngbAutoFocus
+    >
+      Cancel
+    </button>
+    <button
+      class="btn-save ml-4 w-100"
+      *ngIf="!isLoading"
+      (click)="saveUpdate()"
+    >
+      Submit
+    </button>
+    <button class="btn-save ml-4 w-100" disabled *ngIf="isLoading">
+      <i class="fa fa-spinner fa-spin" style="font-size: 16px"></i>
+    </button>
+  </div>
+</div>

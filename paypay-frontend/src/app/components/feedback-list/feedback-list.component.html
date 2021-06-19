@@ -1,0 +1,194 @@
+<div class="row mt-50">
+  <div
+    class="
+      col
+      setting-actions
+      justify-content-between
+      d-flex
+      h-70
+      align-items-center
+    "
+  >
+    <h2 class="text-cyan m-0">Feedback List</h2>
+    <div>
+      <button class="btn-add ml-4" (click)="openAddEditFeedBackForm('add')">
+        <i class="fa fa-plus"></i>Add feedback
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="table_wrapper my-5 mx-3 search-centre">
+      <app-search
+        [childMessage]="parentMessage"
+        (searchEvent)="receiveSearchedData($event)"
+      ></app-search>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="table_wrapper my-5 mx-3 lead-table-padding">
+      <div
+        class="col remove-pd"
+        *ngIf="feedbacks !== null; else no_feedbacks_found"
+      >
+        <div
+          class="pr-accordian mx-auto wm-1000 mt-4"
+          [ngClass]="!accArray.includes(i) ? '' : 'expand'"
+          *ngFor="let feedback of feedbacks; let i = index"
+          [attr.data-index]="i"
+        >
+          <div class="acc-header d-flex justify-content-between">
+            <div class="d-flex-row-centre d-flex">
+              <div class="hide-mobile">
+                <ng-container>
+                  <img
+                    class="status-img lead-status-bg-accepted"
+                    src="../../../assets/images/tags/feedback.png"
+                  />
+                </ng-container>
+              </div>
+              <h5 class="text-black-1">{{ feedback['name'] }}</h5>
+            </div>
+            <div class="d-flex align-items-center">
+              <div>
+                <button
+                  class="btn-save mr-1 btn-accept"
+                  [disabled]="isLoading"
+                  (click)="openAddEditFeedBackForm('edit', feedback)"
+                >
+                  <i
+                    class="fas fa-cog fa-spin"
+                    *ngIf="
+                      isLoading && feedback['published'] && accArray.includes(i)
+                    "
+                  ></i>
+                  Edit
+                </button>
+
+                <button
+                  class="btn-stop mr-3 btn-reject"
+                  [disabled]="isLoading"
+                  (click)="deleteFeedback(feedback.empId)"
+                >
+                  <i
+                    class="fas fa-cog fa-spin"
+                    *ngIf="
+                      isLoading &&
+                      !feedback['published'] &&
+                      accArray.includes(i)
+                    "
+                  ></i>
+                  Delete
+                </button>
+              </div>
+              <button
+                class="ml-1 mr-3 btn-acc-toggle"
+                (click)="toggleDetails(i)"
+              >
+                <i
+                  [ngClass]="
+                    !accArray.includes(i)
+                      ? 'fas fa-chevron-down text-black-2'
+                      : 'fas fa-chevron-up text-black-2'
+                  "
+                ></i>
+              </button>
+            </div>
+          </div>
+          <div class="acc-body px-3">
+            <table class="w-100p table-2">
+              <thead class="hide-mobile">
+                <tr>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Title</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Published</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">
+                      Performace Review
+                    </h4>
+                  </td>
+                  <td class="td-comment">
+                    <h4 class="font-weight-bold text-black-2 p-3">Feedback</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">
+                      Created At
+                    </h4>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="mobile-tr-table">
+                  <td>
+                    <span class="mobile-table-col-heading">Title</span>
+                    <h4 class="text-black-1 p-3 pr-3 w-240">
+                      {{
+                        feedback['title'] === null || feedback['title'] === ''
+                          ? '(no title)'
+                          : feedback['title']
+                      }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Published </span>
+                    <h4 class="text-black-1 p-3 pr-3 w-240">
+                      {{ feedback['published'] }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading">
+                      Perrformance Review
+                    </span>
+                    <div class="text-black-1 p-3 pr-3 w-240">
+                      <span
+                        *ngFor="
+                          let emp of feedback['performance_review'];
+                          let i = index
+                        "
+                      >
+                        {{ emp['name'] }},
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Feedback </span>
+                    <h4 class="text-black-1 p-3 comment">
+                      {{
+                        feedback['feedback'] === null ||
+                        feedback['feedback'] === ''
+                          ? '(no comment)'
+                          : feedback['feedback']
+                      }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Created At </span>
+                    <h4 class="text-black-1 p-3">
+                      {{
+                        feedback['createdAt'] !== null
+                          ? (feedback['createdAt'] | date: 'medium')
+                          : '-'
+                      }}
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <ng-template #no_feedbacks_found>
+        <div class="noLeadFound d-flex-col d-flex-centre">
+          <span> No feedback found with the given name. </span>
+          <img src="../../../assets/images/noProduct/no-product-found.svg" />
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+.fa {
+  vertical-align: middle;
+}
+
+.text-danger {
+  margin-top: 10px;
+}
+
+.approved-status {
+  font-size: 16px;
+}
+
+.rejected-status {
+  font-size: 16px;
+}
+
+.status-img {
+  width: 60px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.d-flex-row-centre {
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.d-flex {
+  display: flex;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.td-comment {
+  width: 300px;
+}
+
+.comment {
+  overflow: hidden;
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.noLeadFound {
+  padding: 20px;
+}
+
+.noLeadFound span {
+  font-size: 16px;
+  margin-bottom: 2rem;
+}
+
+.noLeadFound img {
+  width: 500px;
+}
+
+@media screen and (max-width: 700px) {
+  .noLeadFound img {
+    width: 300px;
+  }
+}

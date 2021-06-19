@@ -1,0 +1,27 @@
+<div [ngSwitch]="modalType">
+  <div *ngSwitchCase="'add-feedback'">
+    <app-add-feedback
+      [title_tag]="title"
+      [formType]="formType"
+      [form_data]="formData"
+    ></app-add-feedback>
+  </div>
+  <div *ngSwitchCase="'add-employee'">
+    <app-add-employee
+      [title_tag]="title"
+      [formType]="formType"
+      [form_data]="formData"
+    ></app-add-employee>
+  </div>
+  <div *ngSwitchCase="'add-review'">
+    <app-add-review
+      [title_tag]="title"
+      [formType]="formType"
+      [form_data]="formData"
+      [review_list]="reviewList"
+    ></app-add-review>
+  </div>
+  <div *ngSwitchCase="'add-lead-success'">
+    <!-- <app-lead-success [title_tag]="title" [formType]="formType"></app-lead-success> -->
+  </div>
+</div>

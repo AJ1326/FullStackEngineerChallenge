@@ -1,0 +1,174 @@
+<div class="row mt-50">
+  <div
+    class="
+      col
+      setting-actions
+      justify-content-between
+      d-flex
+      h-70
+      align-items-center
+    "
+  >
+    <h2 class="text-cyan m-0">Review List</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="table_wrapper my-5 mx-3 lead-table-padding">
+      <div
+        class="col remove-pd"
+        *ngIf="employeeReview !== null; else no_employeeReview_found"
+      >
+        <div
+          class="pr-accordian mx-auto wm-1000 mt-4"
+          [ngClass]="!accArray.includes(i) ? '' : 'expand'"
+          *ngFor="let employee of employeeReview; let i = index"
+          [attr.data-index]="i"
+        >
+          <div class="acc-header d-flex justify-content-between">
+            <div class="d-flex-row-centre d-flex">
+              <div class="hide-mobile">
+                <ng-container>
+                  <img
+                    class="status-img lead-status-bg-accepted"
+                    src="../../../assets/images/tags/document.png"
+                  />
+                </ng-container>
+              </div>
+              <h5 class="text-black-1">{{ employee['name'] }}</h5>
+            </div>
+            <div class="d-flex align-items-center">
+              <div>
+                {{
+                  employee['createdAt'] !== null
+                    ? (employee['createdAt'] | date: 'short')
+                    : '-'
+                }}
+              </div>
+              <button
+                class="ml-1 mr-3 btn-acc-toggle"
+                (click)="toggleDetails(i, employee?.empId)"
+              >
+                <i
+                  [ngClass]="
+                    !accArray.includes(i)
+                      ? 'fas fa-chevron-down text-black-2'
+                      : 'fas fa-chevron-up text-black-2'
+                  "
+                ></i>
+              </button>
+            </div>
+          </div>
+          <div class="acc-body px-3">
+            <table class="w-100p table-2">
+              <thead class="hide-mobile">
+                <tr>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Name</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Email</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Gender</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Status</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">Feedback</h4>
+                  </td>
+                  <td>
+                    <h4 class="font-weight-bold text-black-2 p-3">
+                      Review Given
+                    </h4>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="mobile-tr-table">
+                  <td>
+                    <span class="mobile-table-col-heading">Name</span>
+                    <h4 class="text-black-1 p-3 pr-3 w-240">
+                      {{
+                        employee['name'] === null || employee['name'] === ''
+                          ? '(no name)'
+                          : employee['name']
+                      }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Email </span>
+                    <h4 class="text-black-1 p-3 pr-3 w-240">
+                      {{ employee['email'] }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Gender </span>
+                    <div class="text-black-1 p-3 pr-3 w-240">
+                      {{
+                        employee['gender'] === null || employee['gender'] === ''
+                          ? '(no gender)'
+                          : employee['gender']
+                      }}
+                    </div>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Status </span>
+                    <h4 class="text-black-1 p-3">
+                      {{
+                        employee['status'] !== null ? employee['status'] : '-'
+                      }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Feedback </span>
+                    <h4 class="text-black-1 p-3">
+                      {{
+                        employeeFeedbackByAdmin[i] !== null
+                          ? employeeFeedbackByAdmin[i]
+                          : '(no feedback added yet by Admin)'
+                      }}
+                    </h4>
+                  </td>
+                  <td>
+                    <span class="mobile-table-col-heading"> Review Given </span>
+                    <h4 class="text-black-1 p-3">
+                      {{
+                        employee['review'] !== null ? employee['review'] : '-'
+                      }}
+                    </h4>
+                  </td>
+                  <td
+                    *ngIf="
+                      employeeFeedbackByAdmin[i] !== null &&
+                      employee['status'] !== 'Done'
+                    "
+                  >
+                    <button
+                      class="btn-save mr-1 btn-accept"
+                      [disabled]="isLoading"
+                      (click)="openAddReviewEmployeeForm('edit', employee)"
+                    >
+                      <i
+                        class="fas fa-cog fa-spin"
+                        *ngIf="isLoading && accArray.includes(i)"
+                      ></i>
+                      Add Review
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <ng-template #no_employeeReview_found>
+        <div class="noLeadFound d-flex-col d-flex-centre">
+          <span> No reviews assigned to you yet. </span>
+          <img src="../../../assets/images/noProduct/no-product-found.svg" />
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
